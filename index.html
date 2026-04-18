@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿然の设计工作室</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        /* 通用图片容器：自适应图片比例，不变形 */
+        .img-box {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 覆盖容器，不变形，裁剪边缘 */
+            display: block;
+        }
+
+        /* 导航栏 */
+        nav {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-logo {
+            color: #a855f7;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-actions button {
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            margin-left: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .nav-actions .lang-btn {
+            background-color: #1e293b;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        /* 头部hero区域 */
+        .hero {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+        }
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 3px solid #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            margin: 0 auto 1.5rem;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #a855f7;
+            margin-bottom: 0.5rem;
+        }
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        .hero .desc {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3);
+        }
+        .btn-secondary {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-secondary:hover {
+            background-color: #334155;
+        }
+
+        .down-arrow {
+            text-align: center;
+            margin: 2rem 0;
+            color: #94a3b8;
+            font-size: 1.5rem;
+        }
+
+        /* 创作数据区域 */
+        .stats {
+            padding: 2rem 5%;
+            text-align: center;
+        }
+        .stats h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .stats h2::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: #a855f7;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+        .stat-card:nth-child(1) {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+        .stat-card:nth-child(2) {
+            background-color: rgba(168, 85, 247, 0.2);
+        }
+        .stat-card:nth-child(3) {
+            background-color: rgba(6, 182, 212, 0.2);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card:nth-child(1) .stat-number { color: #3b82f6; }
+        .stat-card:nth-child(2) .stat-number { color: #a855f7; }
+        .stat-card:nth-child(3) .stat-number { color: #06b6d4; }
+
+        /* 关于我区域 */
+        .about {
+            padding: 3rem 5%;
+        }
+        .about h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .about h2::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: #a855f7;
+            position: absolute;
+            bottom: -10px;
+            border-radius: 2px;
+        }
+        .about-desc {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .tag {
+            background-color: #1e293b;
+            padding: 0.5rem 1.5rem;
+            border-radius: 999px;
+            font-size: 1rem;
+        }
+        .tag:nth-child(1) { color: #3b82f6; }
+        .tag:nth-child(2) { color: #a855f7; }
+        .tag:nth-child(3) { color: #ec4899; }
+        .tag:nth-child(4) { color: #10b981; }
+
+        .skills-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .skill-card {
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .skill-card:nth-child(1) .skill-icon { background-color: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .skill-card:nth-child(2) .skill-icon { background-color: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .skill-card:nth-child(3) .skill-icon { background-color: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .skill-card:nth-child(4) .skill-icon { background-color: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+        .skill-content h3 {
+            margin-bottom: 0.3rem;
+        }
+        .skill-content p {
+            color: #94a3b8;
+        }
+
+        /* 精选作品区域 */
+        .works {
+            padding: 3rem 5%;
+        }
+        .works h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        .works h2::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: #a855f7;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .works-desc {
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .works-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .work-card {
+            background-color: #1e293b;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .work-card .img-box {
+             /* 可选：固定宽高比，删除则完全随图片比例 */
+        }
+        .work-card h3 {
+            padding: 1rem 1.5rem;
+            font-size: 1.2rem;
+            color: #e2e8f0;
+        }
+
+        /* 联系区域 */
+        .contact {
+            padding: 3rem 5%;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(168, 85, 247, 0.1));
+            border-radius: 20px;
+            margin: 0 5% 3rem;
+            text-align: center;
+        }
+        .contact h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .contact-desc {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 3rem 5%;
+            background-color: #0f172a;
+            border-top: 1px solid #1e293b;
+        }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col h4 {
+            margin-bottom: 1rem;
+            color: #a855f7;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-col ul li a:hover {
+            color: #a855f7;
+        }
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .copyright {
+            text-align: center;
+            color: #64748b;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-logo">阿然の设计工作室</div>
+        <div class="nav-actions">
+            <button class="lang-btn">中</button>
+            <button>EN</button>
+            <button>☰</button>
+        </div>
+    </nav>
+
+    <!-- 头部hero -->
+    <section class="hero">
+        <!-- 替换：头像图片链接 -->
+        <div class="avatar img-box"><img src="D:\栓Q设计工作室\作品集网页2\img\img4.jpg.jpg" alt="头像"></div>
+        <h1>你好，我是阿然</h1>
+        <p class="subtitle">AI创作者 · 平面设计师 · 新自媒体人</p>
+        <p class="desc">我热衷于用AI技术创造有价值的产品，探索数字艺术与自动化工作流的无限可能</p>
+        <div class="btn-group">
+            <a href="works.html" class="btn-primary">查看我的作品</a>
+            <button class="btn-secondary">了解更多</button>
+        </div>
+        <div class="down-arrow">↓</div>
+    </section>
+
+    <!-- 创作数据 -->
+    <section class="stats">
+        <h2>创作数据</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div>编程产品</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div>工作流</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1</div>
+                <div>智能体</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section class="about">
+        <h2>关于我</h2>
+        <p class="about-desc">我是一名独立创作者，专注于AI应用开发、N8N工作流自动化和智能体构建。我相信技术应该服务于创意，让每一个想法都能落地成形。</p>
+        <div class="tags">
+            <span class="tag">AI编程产品开发</span>
+            <span class="tag">N8N/ComfyUI工作流</span>
+            <span class="tag">智能体集成</span>
+            <span class="tag">全栈Web开发</span>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <div class="skill-content">
+                    <h3>AI应用开发</h3>
+                    <p>使用Claude、GPT等大语言模型构建智能应用</p>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">⚡</div>
+                <div class="skill-content">
+                    <h3>工作流自动化</h3>
+                    <p>N8N、ComfyUI等平台的复杂工作流设计与实现</p>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🤖</div>
+                <div class="skill-content">
+                    <h3>智能体构建</h3>
+                    <p>扣子、元器等平台的智能体开发与集成</p>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🌐</div>
+                <div class="skill-content">
+                    <h3>全栈开发</h3>
+                    <p>Next.js、React、TypeScript全栈Web应用开发</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精选作品 -->
+    <section class="works">
+        <h2>精选作品</h2>
+        <p class="works-desc">这些是我最近完成的一些项目，涵盖编程产品、自动化工作流和AI智能体</p>
+        <div class="works-grid">
+            <div class="work-card">
+                <!-- 替换：作品1图片链接 -->
+                <div class="img-box"><img src="D:\栓Q设计工作室\作品集网页2\img\img1.jpg.jpg" alt="产品海报"></div>
+                <h3>产品海报</h3>
+            </div>
+            <div class="work-card">
+                <!-- 替换：作品2图片链接 -->
+                <div class="img-box"><img src="D:\栓Q设计工作室\作品集网页2\img\img2.jpg.jpg" alt="服装海报"></div>
+                <h3>服装海报</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section class="contact">
+        <h2>有项目想法？</h2>
+        <p class="contact-desc">无论是定制开发、工作流咨询还是智能体集成，欢迎与我交流</p>
+        <div class="btn-group">
+            <button class="btn-primary">微信联系</button>
+            <button class="btn-secondary">浏览更多</button>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="works.html">编程产品</a></li>
+                    <li><a href="#">工作流</a></li>
+                    <li><a href="#">智能体</a></li>
+                    <li><a href="#">关于</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>作品与服务</h4>
+                <ul>
+                    <li><a href="#">定制开发</a></li>
+                    <li><a href="#">工作流自动化咨询</a></li>
+                    <li><a href="#">智能体集成</a></li>
+                    <li><a href="#">技术支持与维护</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系我</h4>
+                <ul>
+                    <li><a href="#">公众号</a></li>
+                    <li><a href="#">微信：nrwen17</a></li>
+                </ul>
+                <!-- 替换：二维码图片链接 -->
+                <div class="qr-code img-box"><img src="你的二维码链接.png" alt="二维码"></div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 十七°·星脉创意平台  隐私 条款
+        </div>
+    </footer>
+</body>
+</html>

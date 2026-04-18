@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编程产品 | 十七°·星脉创意平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        /* 通用图片容器：自适应图片比例，不变形 */
+        .img-box {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 覆盖容器，不变形，裁剪边缘 */
+            display: block;
+        }
+
+        /* 导航栏 */
+        nav {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a855f7;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-logo .avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .nav-actions button {
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            margin-left: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .nav-actions .lang-btn {
+            background-color: #1e293b;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        /* 页面头部 */
+        .page-header {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 2.8rem;
+            color: #818cf8;
+            margin-bottom: 1rem;
+        }
+        .page-header .desc {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #94a3b8;
+            font-size: 1.3rem;
+        }
+
+        /* 分类标签 */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        .tab-btn {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            color: white;
+        }
+
+        /* 作品列表 */
+        .works-list {
+            padding: 0 5% 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .work-item {
+            background-color: #1e293b;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .work-item .img-box {
+           可选：固定宽高比，删除则完全随图片比例 */
+        }
+        .work-info {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .work-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        .work-date {
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 3rem 5%;
+            background-color: #0f172a;
+            border-top: 1px solid #1e293b;
+        }
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col h4 {
+            margin-bottom: 1rem;
+            color: #a855f7;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-col ul li a:hover {
+            color: #a855f7;
+        }
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .copyright {
+            text-align: center;
+            color: #64748b;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <!-- 替换：导航栏小头像链接 -->
+            <div class="avatar-sm img-box"><img src="D:\栓Q设计工作室\作品集网页2\img\img4.jpg.jpg" alt="小头像"></div>
+            阿然の设计工作室
+        </a>
+        <div class="nav-actions">
+            <button class="lang-btn">中</button>
+            <button>EN</button>
+            <button>☰</button>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <h1>设计作品</h1>
+        <p class="desc">我用PS设计的各大产品，分为商业海报、商品主图、三折页、P图、详情页长图和其他六个方面</p>
+        <div class="category-tabs">
+            <button class="tab-btn active">全部</button>
+            <button class="tab-btn">设计产品 · 商业海报</button>
+            <button class="tab-btn">设计产品 · 商品主图</button>
+            <button class="tab-btn">设计产品 · 三折页</button>
+            <button class="tab-btn">设计产品 · P图</button>
+            <button class="tab-btn">设计产品 · 详情页长图</button>
+            <button class="tab-btn">设计产品 · 其他</button>
+        </div>
+    </section>
+
+    <!-- 作品列表 -->
+    <section class="works-list">
+        <div class="work-item">
+            <!-- 替换：作品列表1图片链接 -->
+            <div class="img-box"><img src="D:\栓Q设计工作室\作品集网页2\img\img3.jpg.jpg" alt="产品详情页"></div>
+            <div class="work-info">
+                <div class="work-title">产品详情页</div>
+                <div class="work-date">📅 2026-01-04</div>
+            </div>
+        </div>
+        <div class="work-item">
+            <!-- 替换：作品列表2图片链接 -->
+            <div class="img-box"><img src="你的作品列表2链接.jpg" alt="2048"></div>
+            <div class="work-info">
+                <div class="work-title">2048</div>
+                <div class="work-date">📅 2026-03-30</div>
+            </div>
+        </div>
+        <div class="work-item">
+            <!-- 替换：作品列表3图片链接 -->
+            <div class="img-box"><img src="你的作品列表3链接.jpg" alt="灵动贪吃蛇"></div>
+            <div class="work-info">
+                <div class="work-title">灵动贪吃蛇</div>
+                <div class="work-date">📅 2026-03-30</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="works.html">设计产品</a></li>
+                    <li><a href="#">工作流</a></li>
+                    <li><a href="#">智能体</a></li>
+                    <li><a href="#">关于</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>作品与服务</h4>
+                <ul>
+                    <li><a href="#">定制设计</a></li>
+                    <li><a href="#">工作流自动化咨询</a></li>
+                    <li><a href="#">智能体集成</a></li>
+                    <li><a href="#">AI相关咨询</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系我</h4>
+                <ul>
+                    <li><a href="#">公众号：云舟HY</a></li>
+                    <li><a href="#">微信：hraye134</a></li>
+                </ul>
+                <!-- 替换：二维码图片链接 -->
+                <div class="qr-code img-box"><img src="D:\栓Q设计工作室\作品集网页2\img\img5.jpg.jpg"alt="二维码"></div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 阿然の设计工作室平台  隐私 条款
+        </div>
+    </footer>
+</body>
+</html>
